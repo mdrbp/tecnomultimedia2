@@ -15,36 +15,36 @@ class Forma {
     y4 = y4_;
     y5 = y5_;
 
-    rojo= color(177,4,6);
+    rojo= color(177, 4, 6);
     negro= color(0);
-    azul= color(6,50,109);
-    celeste= color(113,182,211);
-    fuccia= color(2160,59,117);
+    azul= color(6, 50, 109);
+    celeste= color(113, 182, 211);
+    fuccia= color(2160, 59, 117);
   }
   void dibujar(int opacidad_, int elegirColor_) {
     opacidad=opacidad_;
     elegirColor=elegirColor_;
-    
     push();
     noStroke();
-   if (elegirColor ==1){
-      fill(rojo,opacidad);
-    }else if (elegirColor==2){
-      fill(negro,opacidad);
-    }else if (elegirColor==3){
-      fill(fuccia,opacidad);
-    }else if (elegirColor==4){
-      fill(celeste,opacidad);
-    }else if (elegirColor==5){
-      fill(azul,opacidad);
+    if (elegirColor ==1) {
+      tint(rojo, opacidad);
+    } else if (elegirColor==2) {
+      tint(negro, opacidad);
+    } else if (elegirColor==3) {
+      tint(fuccia, opacidad);
+    } else if (elegirColor==4) {
+      tint(celeste, opacidad);
+    } else if (elegirColor==5) {
+      tint(azul, opacidad);
     }
     //fill(255, 255, 255, opacidad);
     beginShape();
-    vertex(x1, y1);
-    vertex(x2, y2);
-    vertex(x3, y3);
-    vertex(x4, y4 );
-    vertex(x5, y5);
+    texture(img);
+    vertex(x1, y1,20,20);
+    vertex(x2, y2,500,20);
+    vertex(x3, y3,500,500);
+    vertex(x4, y4 ,20,500);
+    vertex(x5, y5,20,300);
     endShape(CLOSE);
     pop();
   }
