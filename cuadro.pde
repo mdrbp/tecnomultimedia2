@@ -3,6 +3,9 @@ class Cuadro {
   String estado = "inicio";
   int elegir=0;
   int tiempo;
+  int elegirpng;
+  float tamanolinea = 40;
+  PImage[]linea;
   float mov3, mov4, mov5, mov6, mov7, lugar1, lugar2, lugar3, lugar4, lugar5;
   int cantidad, opacidad, opacidad1, opacidad2, opacidad3, opacidad4, vel, color1, color2, color3, color4, mov1, mov2; 
   //------- invocar------
@@ -10,9 +13,13 @@ class Cuadro {
   Cuadro() {        
     cantidad=0;
     //----------inicializar----------
+    linea = new PImage[5];
     forma1 = new Forma (int (random(150, 200)), int (random(90, 130)), int (random(360, 420)), int (random(90, 130)), int (random(350, 400)), int (random(290, 350)), int (random(150, 190)), int (random(290, 350)), int (random(190, 230)), int (random(210, 290)));
     forma2 = new Forma  (int (random(90, 120)), int (random(190, 220)), int (random(230, 250)), int (random(210, 240)), int (random(220, 240)), int (random(500, 530)), int (random(90, 110)), int (random(500, 530)), int (random(110, 130)), int (random(450, 470)));
-
+    linea[1]= loadImage("linea1.png");
+    linea[2]= loadImage("linea2.png");
+    linea[3]= loadImage("linea3.png");
+    linea[4]= loadImage("linea3.png");
     //// elección de colores
 
     color1=int( random (1, 3));
@@ -54,7 +61,7 @@ class Cuadro {
     mov7=1;
   }
   void dibujar() {
-    if ( haySonido && pitch<70 && pitch>50) {
+    if (ruido> UMBRAL_RUIDO && haySonido) {
       tiempo ++;
       if (tiempo == 1) { 
         cantidad ++;
@@ -83,7 +90,7 @@ class Cuadro {
     }
     if (estado.equals("inicio")) {
       elegir = int( random (7));
-     
+      elegirpng = int(random(1,4));
     }
 
 
@@ -91,7 +98,7 @@ class Cuadro {
     push();
     if (cantidad==1 &&estado.equals ("vertical1")) {  
 
-      if ( haySonido && pitch<70 && pitch>50 ) {      
+      if (ruido> UMBRAL_RUIDO && haySonido ) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -103,7 +110,7 @@ class Cuadro {
       translate(0, -30);
       forma1.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("vertical1")) {
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (ruido> UMBRAL_RUIDO && haySonido) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -117,7 +124,7 @@ class Cuadro {
       forma1.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("vertical1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (ruido> UMBRAL_RUIDO && haySonido) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -133,7 +140,7 @@ class Cuadro {
       forma1.dibujar(opacidad2, color3);
     } else if (cantidad==4 && estado.equals("vertical1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (ruido> UMBRAL_RUIDO && haySonido) {      
         opacidad3 =opacidad3 + vel ;
       }
       if (opacidad3>220) {
@@ -151,7 +158,7 @@ class Cuadro {
       forma1.dibujar(opacidad3, color4);
     } else if (cantidad==5 && estado.equals("vertical1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (ruido> UMBRAL_RUIDO && haySonido) {      
         opacidad4 =opacidad4 + vel ;
       }
       if (opacidad4>220) {
@@ -171,7 +178,7 @@ class Cuadro {
       forma1.dibujar(opacidad4, color2);
     } else if (cantidad >=6 && estado.equals("vertical1")) {  ///MOVIMIENTO
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (ruido> UMBRAL_RUIDO && haySonido) {
         lugar1 = lugar1-mov3;  
         lugar2=lugar2+mov4;
         lugar3=lugar3-mov5;
@@ -209,7 +216,7 @@ class Cuadro {
       translate(lugar1, -30);
       forma1.dibujar(opacidad, color1);
       noFill();
-      arc(250+lugar2, 200, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 350+lugar2, 180, tamanolinea, tamanolinea);
       translate(lugar2, 100);
 
       forma1.dibujar(opacidad1, color2);
@@ -222,7 +229,7 @@ class Cuadro {
 
       translate(lugar5, 100);
       forma1.dibujar(opacidad4, color2);
-      
+
       //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
@@ -230,7 +237,7 @@ class Cuadro {
     /////VERTICAL 2/////
     if (cantidad==1 &&estado.equals ("vertical2")) {  
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (ruido> UMBRAL_RUIDO && haySonido) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -242,7 +249,7 @@ class Cuadro {
       translate(0, 30);
       forma1.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("vertical2")) {
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -256,7 +263,7 @@ class Cuadro {
       forma1.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("vertical2")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -272,7 +279,7 @@ class Cuadro {
       forma1.dibujar(opacidad2, color3);
     } else if (cantidad >=4&& estado.equals("vertical2")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov1;
         lugar2 = lugar2+mov1;
         lugar3= lugar3 +mov2;
@@ -290,15 +297,14 @@ class Cuadro {
 
 
       translate(lugar1, 30);
-      noFill();
-      arc(250+lugar2, 200, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 300+lugar2, 190, tamanolinea, tamanolinea);
       forma1.dibujar(opacidad, color1);
       translate(lugar2, 120);
       forma1.dibujar(opacidad1, color2);
       translate(lugar3, 120);
       forma1.dibujar(opacidad2, color3);
 
-           //NUEVO ESTADO
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
 
@@ -306,7 +312,7 @@ class Cuadro {
 
     if (cantidad==1 &&estado.equals ("vertical3")) {  
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -318,7 +324,7 @@ class Cuadro {
       translate(110, -90);
       forma2.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("vertical3")) {
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -332,7 +338,7 @@ class Cuadro {
       forma2.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("vertical3")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -348,7 +354,7 @@ class Cuadro {
       forma2.dibujar(opacidad2, color3);
     } else if (cantidad >=4&& estado.equals("vertical3")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov1;
         lugar2 = lugar2+mov1;
         lugar3= lugar3 +mov2;
@@ -368,19 +374,18 @@ class Cuadro {
       translate(110+lugar1, -90);  
       forma2.dibujar(opacidad, color1);
       translate(lugar2, 120);
-      noFill();
-      arc(120, 200, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 180, 190, tamanolinea, tamanolinea);
       forma2.dibujar(opacidad1, color2);
       translate(lugar3, 120);
       forma2.dibujar(opacidad2, color3);
-      
-           //NUEVO ESTADO
+
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
     //// HORIZONTAL 1 /////
     if (cantidad==1 &&estado.equals ("horizontal1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -392,7 +397,7 @@ class Cuadro {
       forma2.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("horizontal1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -405,7 +410,7 @@ class Cuadro {
       forma2.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("horizontal1")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -420,7 +425,7 @@ class Cuadro {
       forma2.dibujar(opacidad2, color3);
     } else if (cantidad >=4&& estado.equals("horizontal1")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov1;
         lugar2 = lugar2+mov1;
         lugar3= lugar3 +mov2;
@@ -444,16 +449,16 @@ class Cuadro {
       forma2.dibujar(opacidad1, color2);
       translate(120, lugar3);
       noFill();
-      arc(100, 200, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 200, 190, tamanolinea, tamanolinea);
       forma2.dibujar(opacidad2, color3);
-      
-           //NUEVO ESTADO
+
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
     //// HORIZONTAL 2 /////
     if (cantidad==1 &&estado.equals ("horizontal2")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -465,7 +470,7 @@ class Cuadro {
       forma1.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("horizontal2")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -479,7 +484,7 @@ class Cuadro {
       forma1.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("horizontal2")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -495,7 +500,7 @@ class Cuadro {
       forma1.dibujar(opacidad2, color3);
     } else if (cantidad >=4&& estado.equals("horizontal2")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov1;
         lugar2 = lugar2+mov1;
         lugar3= lugar3 +mov2;
@@ -516,12 +521,12 @@ class Cuadro {
       forma1.dibujar(opacidad, color1);
       translate(120, lugar2);
       noFill();
-      arc(330, 100+lugar2, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 330, 80+lugar2, tamanolinea, tamanolinea);
       forma1.dibujar(opacidad1, color2);
       translate(120, lugar3);
       forma1.dibujar(opacidad2, color3);
 
-           //NUEVO ESTADO
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
 
@@ -529,7 +534,7 @@ class Cuadro {
 
     if (cantidad==1 &&estado.equals ("horizontal3")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -541,7 +546,7 @@ class Cuadro {
       forma2.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("horizontal3")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -555,7 +560,7 @@ class Cuadro {
       forma2.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("horizontal3")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -571,7 +576,7 @@ class Cuadro {
       forma2.dibujar(opacidad2, color3);
     } else if (cantidad==4 && estado.equals("horizontal3")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad3 =opacidad3 + vel ;
       }
       if (opacidad3>220) {
@@ -589,7 +594,7 @@ class Cuadro {
       forma2.dibujar(opacidad3, color4);
     } else if (cantidad >=5&& estado.equals("horizontal3")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov3;  
         lugar2=lugar2+mov4;
         lugar3=lugar3-mov5;
@@ -625,14 +630,14 @@ class Cuadro {
       forma2.dibujar(opacidad2, color3);   
       translate(100, lugar4);
       forma2.dibujar(opacidad3, color4);
-      
-           //NUEVO ESTADO
+
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
     //// HORIZONTAL 4 /////
     if (cantidad==1 &&estado.equals ("horizontal4")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad =opacidad + vel ;
       }
       if (opacidad>220) {
@@ -644,7 +649,7 @@ class Cuadro {
       forma1.dibujar(opacidad, color1);
     } else if (cantidad==2 && estado.equals("horizontal4")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad1 =opacidad1 + vel ;
       }
       if (opacidad1>220) {
@@ -658,7 +663,7 @@ class Cuadro {
       forma1.dibujar(opacidad1, color2);
     } else if (cantidad==3 && estado.equals("horizontal4")) {
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad2 =opacidad2 + vel ;
       }
       if (opacidad2>220) {
@@ -674,7 +679,7 @@ class Cuadro {
       forma1.dibujar(opacidad2, color3);
     } else if (cantidad ==4&& estado.equals("horizontal4")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {      
+      if (haySonido && ruido> UMBRAL_RUIDO) {      
         opacidad3 =opacidad3 + vel ;
       }
       if (opacidad3>220) {
@@ -692,7 +697,7 @@ class Cuadro {
       forma1.dibujar(opacidad3, color4);
     } else if (cantidad >=5&& estado.equals("horizontal4")) {  ///CUANDO SE EMPIEZA A MOVER
 
-      if (haySonido && pitch<70 && pitch>50) {
+      if (haySonido && ruido> UMBRAL_RUIDO) {
         lugar1 = lugar1-mov3;  
         lugar2=lugar2+mov4;
         lugar3=lugar3-mov5;
@@ -722,7 +727,7 @@ class Cuadro {
 
       translate(-130, 140+lugar1);
       noFill();
-      arc(130, 100, 200, 200, radians(340), radians(370), OPEN);
+      image(linea[elegirpng], 230, 100, tamanolinea, tamanolinea);
       forma1.dibujar(opacidad, color1);
       translate(100, lugar2);
       forma1.dibujar(opacidad1, color2);
@@ -730,8 +735,8 @@ class Cuadro {
       forma1.dibujar(opacidad2, color3);
       translate(100, lugar4);
       forma1.dibujar(opacidad3, color4);
-      
-           //NUEVO ESTADO
+
+      //NUEVO ESTADO
       estadoPRINCIPAL= "dibujando";
     }
     pop();

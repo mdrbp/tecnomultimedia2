@@ -23,7 +23,7 @@ class Circulo {
     ejeX=ejeX_;
     ejeY=ejeY_;
     println(conteo);
-    if ( amp>80 ) {
+    if ( amp>85 ) {
       tiempo ++;
       if (tiempo == 1) {
         conteo++;

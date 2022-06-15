@@ -6,7 +6,9 @@ String   estadoPRINCIPAL;
 float TiempoFinal;
 PImage img;
 float amp, pitch;
-float UMBRAL_AMP =70;
+int ruido;
+float UMBRAL_AMP =60;
+float UMBRAL_RUIDO =100;
 float  UMBRAL_TIEMPO=100;
 boolean haySonido =false;
 boolean nohaysonido =false;
@@ -77,7 +79,7 @@ void draw() {
     circulito.dibujar();
     final_.dibujar();
   }
-  if (TiempoFinal >=2500){
+  if (TiempoFinal >=1000){
   estadoPRINCIPAL ="obrareinicia";
   TiempoFinal =0;
   }
@@ -96,7 +98,12 @@ void oscEvent( OscMessage m) {
   if (m.addrPattern().equals("/pitch")) {
 
     pitch = m.get(0).floatValue();
-    println(pitch);
+
+  }
+  if (m.addrPattern().equals("/ruido")) {
+
+    ruido = m.get(0).intValue();
+
   }
 }
 

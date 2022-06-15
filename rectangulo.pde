@@ -2,7 +2,7 @@ class Rectangulo {
   float rot= (random(-30, 30));
   float posibilidad=random(100);
   float posibilidad1=random(100);
-  float x=(random(60, 300));
+  float x=(random(100, 300));
   float y=(random(450, 550));
   float alto=(random (15, 25));
   float ancho=(random (90, 110));
@@ -15,7 +15,9 @@ class Rectangulo {
 
   void dibujar() {
    println(conteo);
-    if (amp>75&& pitch < 50.000 && millis()<marcaTiempo+ UMBRAL_TIEMPO ) {
+   println(x);
+   println(y);
+    if (amp>70&& pitch < 55.000 ) {
       tiempo ++;
       if (tiempo == 1) {
         conteo++;
@@ -30,9 +32,7 @@ class Rectangulo {
     } else if (conteo>=3) {
       conteo=1;
     }
-    if (estado.equals("inicio")) {
-      elegir =int(random(1, 11));
-    } else if (estado.equals("primero")) {
+   if (estado.equals("primero")) {
       rectangulo(elegir, x, y, ancho, alto, rot, posibilidad, posibilidad1);
       } else if (estado.equals("cambia lugar")) {
       if (tiempo ==1) {
